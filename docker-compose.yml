@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+  booked:
+    build: .
+    ports:
+      - "80:80"
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: booked_user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: bookedscheduler
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
