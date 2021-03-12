@@ -13,6 +13,8 @@ services:
       MYSQL_USER: booked_user
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: bookedscheduler
+    volumes:
+      - ./database_schema/migrations:/docker-entrypoint-initdb.d
   adminer:
     image: adminer
     restart: always
