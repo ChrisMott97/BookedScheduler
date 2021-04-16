@@ -1,0 +1,5 @@
+auth:
+  rootPassword: example
+  database: bookedscheduler
+  username: booked_user
+  password: password
