@@ -17,7 +17,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+header('PodIP: ' . getenv('MY_POD_IP'));
 define('ROOT_DIR', '../');
 
 if (!file_exists(ROOT_DIR . 'config/config.php'))
