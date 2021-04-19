@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:7.1-apache
 WORKDIR /var/www/html/
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 RUN a2enmod rewrite
