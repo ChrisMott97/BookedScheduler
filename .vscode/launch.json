@@ -1,12 +1,4 @@
 {
-<<<<<<< HEAD
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": []
-}
-=======
     // doc: https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes
     "version": "0.2.0",
     "configurations": [
@@ -22,4 +14,4 @@
         },
     ]
 }
->>>>>>> 8b1ec1e99e4850e6dbb0fd3c7a7a6f2ec765c1c7
+

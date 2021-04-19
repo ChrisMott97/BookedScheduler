@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 /**
 Copyright 2011-2020 Nick Korbel
 
@@ -19,9 +18,6 @@ You should have received a copy of the GNU General Public License
 along with Booked Scheduler.  If not, see <http://www.gnu.org/licenses/>.
  */
 header('PodIP: ' . getenv('MY_POD_IP'));
-=======
-
->>>>>>> 8b1ec1e99e4850e6dbb0fd3c7a7a6f2ec765c1c7
 define('ROOT_DIR', '../');
 
 if (!file_exists(ROOT_DIR . 'config/config.php'))
