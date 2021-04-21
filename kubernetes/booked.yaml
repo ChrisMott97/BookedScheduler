@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booked
+  labels:
+    app: booked
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booked
+  template:
+    metadata:
+      name: booked
+      labels:
+        app: booked
+    spec:
+      nodeSelector:
+        k3s.io/hostname: node1
+      containers:
+      - name: booked
+        image: cmott97/booked:latest
