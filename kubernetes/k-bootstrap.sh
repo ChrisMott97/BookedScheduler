@@ -6,14 +6,16 @@
 : "${PRIVATE_SSH_KEY_PATH:=/home/$USER/.ssh/id_rsa}"
 
 master="master"
-nodes=("node1" "node2")
+nodes=("node1" "node2" "node3")
 context="k3s"
 
 # $1 = name
 # $2 = disk
 # $3 = memory
+# $4 = cpu
+# $5 = image
 createInstance () {
-  multipass launch -n "$1" -d "$2" -m "$3" --cloud-init - <<EOF
+  multipass launch -n "$1" -d "$2" -m "$3" -c "$4" --cloud-init - <<EOF
 users:
 - name: ${USER}
   groups: sudo
@@ -21,6 +23,7 @@ users:
   ssh_authorized_keys:
   - $(cat "${PUBLIC_SSH_KEY_PATH}")
 EOF
+
 }
 
 getNodeIP() {
@@ -38,12 +41,12 @@ installK3sWorkerNode() {
 }
 
 echo Creating master instance...
-createInstance "$master" 5G 1G
+createInstance "$master" 5G 1G 1
 
 echo Creating node instances...
 for node in "${nodes[@]}"
 do
- createInstance "$node" 5G 1G
+ createInstance "$node" 5G 1G 1
 done
 
 echo Installing K3S on master node...
@@ -56,9 +59,14 @@ do
 done
 
 echo Installing MariaDB...
-helm install mariadb --set auth.rootPassword=example,auth.database=bookedscheduler,auth.username=booked_user,auth.password=password bitnami/mariadb 
+#helm install mariadb --set primary.nodeSelector={k3s.io/hostname: node1},auth.rootPassword=example,auth.database=bookedscheduler,auth.username=booked_user,auth.password=password bitnami/mariadb 
+helm install mariadb --set primary.nodeSelector."k3s\.io/hostname"=node3,auth.rootPassword=example,auth.database=bookedscheduler,auth.username=booked_user,auth.password=password bitnami/mariadb
+
+kubectl label node node1 node-role.kubernetes.io/worker=worker
+kubectl label node node2 node-role.kubernetes.io/worker=worker
 
 echo Orchestrating deployments...
-kubectl create deployment booked --image=cmott97/booked:latest
+kubectl apply -f https://raw.githubusercontent.com/ChrisMott97/BookedScheduler/Final/kubernetes/booked.yaml
+#kubectl apply -f https://raw.githubusercontent.com/ChrisMott97/BookedScheduler/Final/kubernetes/infinite-calls.yaml
 kubectl expose deployment booked --type="NodePort" --port 80
 echo Booked accessible at $(getNodeIP "$master"):$(kubectl get service booked -o yaml | grep 'nodePort' | awk '{print $3}')

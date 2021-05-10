@@ -5,7 +5,7 @@ metadata:
   labels:
     app: booked
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: booked
@@ -16,7 +16,7 @@ spec:
         app: booked
     spec:
       nodeSelector:
-        k3s.io/hostname: node1
+        node-role.kubernetes.io/worker: worker
       containers:
       - name: booked
         image: cmott97/booked:latest
