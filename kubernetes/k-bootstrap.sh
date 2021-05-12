@@ -59,7 +59,6 @@ do
 done
 
 echo Installing MariaDB...
-#helm install mariadb --set primary.nodeSelector={k3s.io/hostname: node1},auth.rootPassword=example,auth.database=bookedscheduler,auth.username=booked_user,auth.password=password bitnami/mariadb 
 helm install mariadb --set primary.nodeSelector."k3s\.io/hostname"=node3,auth.rootPassword=example,auth.database=bookedscheduler,auth.username=booked_user,auth.password=password bitnami/mariadb
 
 kubectl label node node1 node-role.kubernetes.io/worker=worker
@@ -67,6 +66,5 @@ kubectl label node node2 node-role.kubernetes.io/worker=worker
 
 echo Orchestrating deployments...
 kubectl apply -f https://raw.githubusercontent.com/ChrisMott97/BookedScheduler/Final/kubernetes/booked.yaml
-#kubectl apply -f https://raw.githubusercontent.com/ChrisMott97/BookedScheduler/Final/kubernetes/infinite-calls.yaml
 kubectl expose deployment booked --type="NodePort" --port 80
 echo Booked accessible at $(getNodeIP "$master"):$(kubectl get service booked -o yaml | grep 'nodePort' | awk '{print $3}')

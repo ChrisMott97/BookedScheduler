@@ -18,6 +18,9 @@ export let options = {
   
 };
 
+//The IP and Port needs to be changed once the system has
+//been put up. kubectl cluster-info can get the ip, and 
+//kubectl get services will show the port of the NodePort
 const BASE_URL = 'http://10.49.167.125:32622/Web/';
 
 export default function () {
