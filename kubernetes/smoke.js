@@ -10,7 +10,7 @@ export let options = {
   },
 };
 
-const BASE_URL = 'http://10.49.167.217:32704/Web';
+const BASE_URL = 'http://10.49.167.29:32651/Web';
 
 export default function () {
   let data = {

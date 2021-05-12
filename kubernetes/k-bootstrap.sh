@@ -46,7 +46,7 @@ createInstance "$master" 5G 1G 1
 echo Creating node instances...
 for node in "${nodes[@]}"
 do
- createInstance "$node" 5G 1G 1
+ createInstance "$node" 5G 2G 1
 done
 
 echo Installing K3S on master node...
